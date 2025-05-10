@@ -1065,7 +1065,7 @@ void initConfig(struct config *conf)
 	conf->webserver.paths.webroot.a = cJSON_CreateStringReference("<valid path>");
 	conf->webserver.paths.webroot.t = CONF_STRING;
 	conf->webserver.paths.webroot.f = FLAG_RESTART_FTL;
-	conf->webserver.paths.webroot.d.s = (char*)"/var/www/html";
+	conf->webserver.paths.webroot.d.s = (char*)PIHOLE_WEB_PATH;
 	conf->webserver.paths.webroot.c = validate_filepath;
 
 	conf->webserver.paths.webhome.k = "webserver.paths.webhome";
@@ -1232,14 +1232,14 @@ void initConfig(struct config *conf)
 	conf->files.pid.a = cJSON_CreateStringReference("<any writable file>");
 	conf->files.pid.t = CONF_STRING;
 	conf->files.pid.f = FLAG_RESTART_FTL;
-	conf->files.pid.d.s = (char*)"/run/pihole-FTL.pid";
+	conf->files.pid.d.s = (char*)PIHOLE_RUN_PATH"/FTL.pid";
 	conf->files.pid.c = validate_filepath;
 
 	conf->files.database.k = "files.database";
 	conf->files.database.h = "The location of FTL's long-term database";
 	conf->files.database.a = cJSON_CreateStringReference("<any FTL database>");
 	conf->files.database.t = CONF_STRING;
-	conf->files.database.d.s = (char*)"/etc/pihole/pihole-FTL.db";
+	conf->files.database.d.s = (char*)PIHOLE_STATE_PATH"/pihole-FTL.db";
 	conf->files.database.c = validate_filepath;
 
 	conf->files.gravity.k = "files.gravity";
@@ -1247,7 +1247,7 @@ void initConfig(struct config *conf)
 	conf->files.gravity.a = cJSON_CreateStringReference("<any Pi-hole gravity database>");
 	conf->files.gravity.t = CONF_STRING;
 	conf->files.gravity.f = FLAG_RESTART_FTL;
-	conf->files.gravity.d.s = (char*)"/etc/pihole/gravity.db";
+	conf->files.gravity.d.s = (char*)PIHOLE_STATE_PATH"/gravity.db";
 	conf->files.gravity.c = validate_filepath;
 
 	conf->files.gravity_tmp.k = "files.gravity_tmp";
@@ -1262,7 +1262,7 @@ void initConfig(struct config *conf)
 	conf->files.macvendor.h = "The database containing MAC -> Vendor information for the network table";
 	conf->files.macvendor.a = cJSON_CreateStringReference("<any Pi-hole macvendor database>");
 	conf->files.macvendor.t = CONF_STRING;
-	conf->files.macvendor.d.s = (char*)"/etc/pihole/macvendor.db";
+	conf->files.macvendor.d.s = (char*)PIHOLE_SHARE_PATH"/macvendor.db";
 	conf->files.macvendor.c = validate_filepath;
 
 	conf->files.setupVars.k = "files.setupVars";

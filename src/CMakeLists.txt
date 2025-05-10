@@ -15,6 +15,36 @@ if (NOT EXISTS ${CMAKE_BINARY_DIR}/CMakeCache.txt)
     endif()
 endif()
 
+if (PIHOLE_STATE_PATH)
+       add_definitions(-DPIHOLE_STATE_PATH="${PIHOLE_STATE_PATH}")
+else()
+       add_definitions(-DPIHOLE_STATE_PATH="/etc/pihole")
+endif()
+
+if (PIHOLE_SHARE_PATH)
+       add_definitions(-DPIHOLE_SHARE_PATH="${PIHOLE_SHARE_PATH}")
+else()
+       add_definitions(-DPIHOLE_SHARE_PATH="/etc/pihole")
+endif()
+
+if (PIHOLE_BIN_PATH)
+       add_definitions(-DPIHOLE_BIN_PATH="${PIHOLE_BIN_PATH}")
+else()
+       add_definitions(-DPIHOLE_BIN_PATH="/usr/local/bin")
+endif()
+
+if (PIHOLE_WEB_PATH)
+       add_definitions(-DPIHOLE_WEB_PATH="${PIHOLE_WEB_PATH}")
+else()
+       add_definitions(-DPIHOLE_WEB_PATH="/var/www/html")
+endif()
+
+if (PIHOLE_RUN_PATH)
+       add_definitions(-DPIHOLE_RUN_PATH="${PIHOLE_RUN_PATH}")
+else()
+       add_definitions(-DPIHOLE_RUN_PATH="/run")
+endif()
+
 # Do not add run time path information
 # This ensures CMake does not add rpath information to the binary and
 # subsequently strip it from the binary during install causing the binary

@@ -117,7 +117,7 @@ static int run_and_stream_command(struct ftl_conn *api, const char *path, const 
 
 int api_action_gravity(struct ftl_conn *api)
 {
-	return run_and_stream_command(api, "/usr/local/bin/pihole", (const char *const []){ "pihole", "-g", NULL });
+	return run_and_stream_command(api, PIHOLE_BIN_PATH"/pihole", (const char *const []){ "pihole", "-g", NULL });
 }
 
 int api_action_restartDNS(struct ftl_conn *api)

@@ -40,7 +40,7 @@
 #define GLOBALCONFFILE_LEGACY "/etc/pihole/pihole-FTL.conf"
 
 // Migration target for the legacy (pre-v6.0) config file
-#define MIGRATION_TARGET_V6 "/etc/pihole/migration_backup_v6"
+#define MIGRATION_TARGET_V6 PIHOLE_STATE_PATH"/migration_backup_v6"
 
 union conf_value {
 	bool b;                                     // boolean value

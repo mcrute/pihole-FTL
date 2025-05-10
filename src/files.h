@@ -20,7 +20,7 @@
 #include <pwd.h>
 
 #define MAX_ROTATIONS 15
-#define BACKUP_DIR "/etc/pihole/config_backups"
+#define BACKUP_DIR PIHOLE_STATE_PATH"/config_backups"
 
 bool chmod_file(const char *filename, const mode_t mode);
 bool file_exists(const char *filename);
