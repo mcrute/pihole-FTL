@@ -45,6 +45,7 @@
 // cJSON_Version()
 #include "webserver/cJSON/cJSON.h"
 #include "config/cli.h"
+// initConfig
 #include "config/config.h"
 // compression functions
 #include "zip/gzip.h"
@@ -70,6 +71,8 @@
 #include "ntp/ntp.h"
 // check_capability()
 #include "capabilities.h"
+// writeFTLtomlTo
+#include "config/toml_writer.h"
 
 // defined in dnsmasq.c
 extern void print_dnsmasq_version(const char *yellow, const char *green, const char *bold, const char *normal);
@@ -283,6 +286,14 @@ void parse_args(int argc, char *argv[])
 		// Return exit code
 		exit(success ? EXIT_SUCCESS : EXIT_FAILURE);
 	}
+
+    // Print default configuration to stdout
+    if(argc > 1 && strcmp(argv[1], "--print-default-config") == 0)
+    {
+        initConfig(&config);
+        writeFTLtomlTo(stdout, false);
+        exit(EXIT_SUCCESS);
+    }
 
 	// Set config option through CLI
 	if(argc > 1 && strcmp(argv[1], "--config") == 0)

@@ -11,5 +11,6 @@
 #define TOML_WRITER_H
 
 bool writeFTLtoml(const bool verbose);
+void writeFTLtomlTo(FILE *fp, const bool verbose);
 
 #endif //TOML_WRITER_H

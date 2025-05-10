@@ -46,7 +46,6 @@ uint8_t last_checksum[SHA256_DIGEST_SIZE] = { 0 };
 // Private prototypes
 static bool port_in_use(const in_port_t port);
 static void reset_config_default(struct conf_item *conf_item);
-static void initConfig(struct config *conf);
 
 // Set debug flags from config struct to global debug_flags array
 // This is called whenever the config is reloaded and debug flags may have
@@ -390,7 +389,7 @@ void free_config(struct config *conf)
 	}
 }
 
-static void initConfig(struct config *conf)
+void initConfig(struct config *conf)
 {
 	if(config_initialized)
 		return;

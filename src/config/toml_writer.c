@@ -25,27 +25,7 @@
 // defined in config/config.c
 extern uint8_t last_checksum[SHA256_DIGEST_SIZE];
 
-bool writeFTLtoml(const bool verbose)
-{
-	// Return early without writing if we are in config read-only mode
-	if(config.misc.readOnly.v.b)
-	{
-		log_debug(DEBUG_CONFIG, "Config file is read-only, not writing");
-
-		// We need to (re-)calculate the checksum here as it'd otherwise
-		// be outdated (in non-read-only mode, it's calculated at the
-		// end of this function)
-		if(!sha256sum(GLOBALTOMLPATH, last_checksum, false))
-			log_err("Unable to create checksum of %s", GLOBALTOMLPATH);
-		return true;
-	}
-
-	// Try to open a temporary config file for writing
-	bool locked = false;
-	FILE *fp = openFTLtoml("w", 0, &locked);
-	if(fp == NULL)
-		return false;
-
+void writeFTLtomlTo(FILE *fp, const bool verbose) {
 	// Write header
 	fprintf(fp, "# Pi-hole configuration file (%s)\n", get_FTL_version());
 	fputs("# Encoding: UTF-8\n", fp);
@@ -162,6 +142,30 @@ bool writeFTLtoml(const bool verbose)
 
 	// Free cJSON array
 	cJSON_Delete(env_vars);
+}
+
+bool writeFTLtoml(const bool verbose)
+{
+	// Return early without writing if we are in config read-only mode
+	if(config.misc.readOnly.v.b)
+	{
+		log_debug(DEBUG_CONFIG, "Config file is read-only, not writing");
+
+		// We need to (re-)calculate the checksum here as it'd otherwise
+		// be outdated (in non-read-only mode, it's calculated at the
+		// end of this function)
+		if(!sha256sum(GLOBALTOMLPATH, last_checksum, false))
+			log_err("Unable to create checksum of %s", GLOBALTOMLPATH);
+		return true;
+	}
+
+	// Try to open a temporary config file for writing
+	bool locked = false;
+	FILE *fp = openFTLtoml("w", 0, &locked);
+	if(fp == NULL)
+		return false;
+
+    writeFTLtomlTo(fp, verbose);
 
 	// Close file and release exclusive lock
 	closeFTLtoml(fp, locked);

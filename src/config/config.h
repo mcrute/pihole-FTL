@@ -377,6 +377,7 @@ const char *get_conf_type_str(const enum conf_type type) __attribute__ ((const))
 void replace_config(struct config *newconf);
 void reread_config(void);
 bool create_migration_target_v6(void);
+void initConfig(struct config *conf);
 
 // Defined in toml_reader.c
 bool readDebugSettings(void);
